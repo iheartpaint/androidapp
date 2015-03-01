@@ -163,22 +163,22 @@ public class AccelerometerActivity2 extends Activity {
 
                             switch(currentColor) {
                                 case 1: currentColor = 0;
-                                    hue = 0;
-                                    break;
-                                case 2: currentColor = 1;
                                     hue = 50;
                                     break;
-                                case 3: currentColor = 2;
+                                case 2: currentColor = 1;
                                     hue = 102;
                                     break;
-                                case 4: currentColor = 3;
+                                case 3: currentColor = 2;
                                     hue = 180;
                                     break;
-                                case 5: currentColor = 4;
+                                case 4: currentColor = 3;
                                     hue = 231;
                                     break;
-                                case 6: currentColor = 5;
+                                case 5: currentColor = 4;
                                     hue = 281;
+                                    break;
+                                case 6: currentColor = 5;
+                                    hue = 331;
                                     break;
                             }
 
