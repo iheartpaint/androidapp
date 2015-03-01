@@ -47,7 +47,7 @@ public class AccelerometerActivity extends Activity {
         Log.i(TAG, "onCreate: ");
 
         setContentView(R.layout.activity_accelerometer);
-
+    // Hey so what are vectors really??
         vector[VECTOR_INDEX_X] = 0;
         vector[VECTOR_INDEX_Y] = 0;
         vector[VECTOR_INDEX_Z] = 0;
