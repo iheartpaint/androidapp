@@ -70,7 +70,7 @@ public class AccelerometerActivity2 extends Activity {
         PebbleKit.startAppOnPebble(getApplicationContext(), PEBBLEPOINTER_UUID);
 
         Button resetButton = (Button) findViewById(R.id.resetButton);
-        final IlumiSDK.IlumiColor resetColor = new IlumiSDK.IlumiColor(0, 0, 0, 0, 0xFF);
+        final IlumiSDK.IlumiColor resetColor = new IlumiSDK.IlumiColor(0, 0, 0, 0xFF, 0xFF);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
