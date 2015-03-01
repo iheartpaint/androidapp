@@ -42,6 +42,24 @@ public class Colorscreen extends Activity {
                 IlumiSDK.sharedManager().setColor(macAddressBytes, testColor);
             }
         });
+
+        Button turnOnButton = (Button) findViewById( R.id.turnOnButton );
+        turnOnButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                IlumiSDK.sharedManager().turnOn(macAddressBytes);
+            }
+        });
+
+        Button turnOffButton = (Button) findViewById( R.id.turnOffButton );
+        turnOffButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                IlumiSDK.sharedManager().turnOff(macAddressBytes);
+            }
+        });
     }
 
 }
