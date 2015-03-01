@@ -39,8 +39,7 @@ public class AccelerometerActivity extends Activity {
 
     // This UUID identifies the PebblePointer app.
     private static final UUID PEBBLEPOINTER_UUID = UUID.fromString("0ef85252-8f67-409f-9bff-75da0fb79ae5");
-
-    private static final int SAMPLE_SIZE = 30;
+    private PebbleKit.PebbleDataLogReceiver dataloggingReceiver;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
