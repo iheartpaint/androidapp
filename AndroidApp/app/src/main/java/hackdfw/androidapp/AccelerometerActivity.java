@@ -57,7 +57,7 @@ public class AccelerometerActivity extends Activity {
 
         Log.i(TAG, "onCreate: ");
 
-        setContentView(R.layout.activity_accelerometer);
+        setContentView(R.layout.activity_accelerometer_activity2);
     // Hey so what are vectors really??
         vector[VECTOR_INDEX_X] = 0;
         vector[VECTOR_INDEX_Y] = 0;
@@ -81,7 +81,7 @@ public class AccelerometerActivity extends Activity {
 
         Log.i(TAG, "onPause: ");
 
-        setContentView(R.layout.activity_accelerometer);
+        setContentView(R.layout.activity_accelerometer_activity2);
 
         if (dataReceiver != null) {
             unregisterReceiver(dataReceiver);

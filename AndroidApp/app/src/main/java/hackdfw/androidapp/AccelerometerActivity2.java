@@ -66,7 +66,7 @@ public class AccelerometerActivity2 extends Activity {
 
         Log.i(TAG, "onCreate: ");
 
-        setContentView(R.layout.activity_accelerometer);
+        setContentView(R.layout.activity_accelerometer_activity2);
         // Hey so what are vectors really??
         vector[VECTOR_INDEX_X] = 0;
         vector[VECTOR_INDEX_Y] = 0;
@@ -90,7 +90,7 @@ public class AccelerometerActivity2 extends Activity {
 
         Log.i(TAG, "onPause: ");
 
-        setContentView(R.layout.activity_accelerometer);
+        setContentView(R.layout.activity_accelerometer_activity2);
 
         if (dataReceiver != null) {
             unregisterReceiver(dataReceiver);
@@ -197,8 +197,8 @@ public class AccelerometerActivity2 extends Activity {
                                 startActivity(intent);
                             }
                             */
-                            //TextView backgroundColor = (TextView) findViewById(R.id.backgroundColor);
-                            //backgroundColor.setBackgroundColor(color);
+                            TextView backgroundColor = (TextView) findViewById(R.id.backgroundColor);
+                            backgroundColor.setBackgroundColor(color);
 
                         }
                         if(cmdValue.intValue() == PP_CMD_SELECT) {
