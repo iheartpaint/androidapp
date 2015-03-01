@@ -46,6 +46,8 @@ public class AccelerometerActivity2 extends Activity {
 
     private static int currentColor = 0;
 
+    private static int lastTimeStamp = -1;
+
     private PebbleKit.PebbleDataReceiver dataReceiver;
 
     // This UUID identifies the PebblePointer app.
@@ -134,10 +136,15 @@ public class AccelerometerActivity2 extends Activity {
                             }
                             Log.i(TAG, "vector y" + vector[VECTOR_INDEX_Y]);
 
-                            saturation = saturation + (vector[VECTOR_INDEX_Y] / 1000);
-                            Math.max(0, Math.min(1, saturation));
-                            Color saturationColor = new Color();
-                            int color = saturationColor.HSVToColor(new float[] {0,saturation,1f});
+                            long timeelapsed = Math.min(System.currentTimeMillis() - lastTimeStamp, 1000);
+                            float RC = 0.3f;
+                            float alpha = timeelapsed / (RC + timeelapsed);
+                            saturation = ((alpha * vector[VECTOR_INDEX_Y]) + (1.0f - alpha)) / 800;
+                            Log.i(TAG, "saturation " + saturation);
+                            //saturation = saturation + (vector[VECTOR_INDEX_Y] / 1000);
+                            saturation = Math.max(0, Math.min(1, saturation));
+                            int color = Color.HSVToColor(new float[] {0,saturation,1f});
+
                             IlumiSDK.IlumiColor satColor = new IlumiSDK.IlumiColor(Color.red(color), Color.green(color), Color.blue(color), 0, 0xFF);
                             IlumiSDK.sharedManager().setColor(macAddressBytes, satColor);
 
