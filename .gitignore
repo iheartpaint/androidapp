@@ -181,3 +181,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+AndroidApp/app/src/main/java/hackdfw/androidapp/Colorscreen.java
