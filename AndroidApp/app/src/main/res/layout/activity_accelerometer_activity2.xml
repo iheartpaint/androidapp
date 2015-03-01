@@ -30,11 +30,11 @@
             android:id="@+id/z_axis"
             android:layout_below="@id/y_axis"/>
     </RelativeLayout>
-        <FrameLayout
-            android:layout_centerHorizontal="true"
-            android:background="#ff000000"
-            android:layout_marginTop="150dp"
-            android:layout_width="300dp"
-            android:layout_height="300dp">
-        </FrameLayout>
+    <FrameLayout
+        android:layout_centerHorizontal="true"
+        android:background="#ff000000"
+        android:layout_marginTop="150dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+    </FrameLayout>
 </LinearLayout>

@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity implements IlumiSDKDelegate 
 
                 byte[] macAddressBytes = ilumiArrayAdaptor.getItem(position);
 
-                Intent launchAccelerometerActivity = new Intent(getApplicationContext(), Colorscreen.class);
+                Intent launchAccelerometerActivity = new Intent(getApplicationContext(), AccelerometerActivity2.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putByteArray("macAddressBytes", macAddressBytes);

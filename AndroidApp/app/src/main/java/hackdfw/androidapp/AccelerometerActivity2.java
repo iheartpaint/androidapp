@@ -20,7 +20,7 @@ import java.util.UUID;
 
 
 
-public class AccelerometerActivity extends Activity {
+public class AccelerometerActivity2 extends Activity {
     private static final String TAG = "PebblePointer";
 
     private byte[] macAddressBytes;
@@ -58,7 +58,7 @@ public class AccelerometerActivity extends Activity {
         Log.i(TAG, "onCreate: ");
 
         setContentView(R.layout.activity_accelerometer);
-    // Hey so what are vectors really??
+        // Hey so what are vectors really??
         vector[VECTOR_INDEX_X] = 0;
         vector[VECTOR_INDEX_Y] = 0;
         vector[VECTOR_INDEX_Z] = 0;
@@ -98,10 +98,12 @@ public class AccelerometerActivity extends Activity {
 
         final Handler handler = new Handler();
 
+        boolean connected = PebbleKit.isWatchConnected(getApplicationContext()); Log.i(getLocalClassName(), "Pebble is " + (connected ? "connected" : "not connected"));
         dataReceiver = new PebbleKit.PebbleDataReceiver(PEBBLEPOINTER_UUID) {
 
             @Override
             public void receiveData(final Context context, final int transactionId, final PebbleDictionary dict) {
+                Log.i(TAG, "data receiver created");
 
                 handler.post(new Runnable() {
                     @Override

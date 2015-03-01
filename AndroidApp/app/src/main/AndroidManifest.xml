@@ -2,23 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hackdfw.androidapp" >
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-
         <activity
             android:name=".Colorscreen"
             android:label="@string/title_activity_colorscreen" >
-
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_colorscreen" >
@@ -27,6 +22,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".AccelerometerActivity2"
+            android:label="@string/title_activity_accelerometer_activity2" >
         </activity>
     </application>
 
