@@ -12,29 +12,12 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:text="Reset" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/x_axis"
-            android:layout_below="@id/resetButton"
-            android:layout_alignParentStart="true" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/y_axis"
-            android:layout_below="@id/x_axis"
-            android:layout_alignParentStart="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/z_axis"
-            android:layout_below="@id/y_axis"/>
     </RelativeLayout>
-    <FrameLayout
-        android:layout_centerHorizontal="true"
-        android:background="#ff000000"
-        android:layout_marginTop="150dp"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
-    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="New Text"
+        android:id="@+id/backgroundColor"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

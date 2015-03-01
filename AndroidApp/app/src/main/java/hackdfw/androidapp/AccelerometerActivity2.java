@@ -2,7 +2,9 @@ package hackdfw.androidapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -34,6 +36,7 @@ public class AccelerometerActivity2 extends Activity {
 
     private static final int PP_CMD_INVALID = 0;
     private static final int PP_CMD_VECTOR  = 1;
+    private static final int PP_CMD_SELECT  = 2;
 
     public static final int VECTOR_INDEX_X  = 0;
     public static final int VECTOR_INDEX_Y  = 1;
@@ -44,7 +47,8 @@ public class AccelerometerActivity2 extends Activity {
 
     private static int vector[] = new int[3];
 
-    private static int currentColor = 0;
+    public int currentColor = 0;
+    public int hue = 0;
 
     private static int lastTimeStamp = -1;
 
@@ -142,11 +146,7 @@ public class AccelerometerActivity2 extends Activity {
                             saturation = ((alpha * vector[VECTOR_INDEX_Y]) + (1.0f - alpha)) / 800;
                             Log.i(TAG, "saturation " + saturation);
                             //saturation = saturation + (vector[VECTOR_INDEX_Y] / 1000);
-                            saturation = Math.max(0, Math.min(1, saturation));
-                            int color = Color.HSVToColor(new float[] {0,saturation,1f});
-
-                            IlumiSDK.IlumiColor satColor = new IlumiSDK.IlumiColor(Color.red(color), Color.green(color), Color.blue(color), 0, 0xFF);
-                            IlumiSDK.sharedManager().setColor(macAddressBytes, satColor);
+                            saturation = Math.max(0.5f, Math.min(1, saturation));
 
                             final Long zValue = dict.getInteger(PP_KEY_Z);
                             if (zValue != null) {
@@ -159,6 +159,44 @@ public class AccelerometerActivity2 extends Activity {
                                 currentColor = colorValue.intValue();
                             }
                             Log.i(TAG, "color: " + currentColor);
+
+                            switch(currentColor) {
+                                case 1: currentColor = 0;
+                                    hue = 0;
+                                    break;
+                                case 2: currentColor = 1;
+                                    hue = 50;
+                                    break;
+                                case 3: currentColor = 2;
+                                    hue = 102;
+                                    break;
+                                case 4: currentColor = 3;
+                                    hue = 180;
+                                    break;
+                                case 5: currentColor = 4;
+                                    hue = 231;
+                                    break;
+                                case 6: currentColor = 5;
+                                    hue = 281;
+                                    break;
+                            }
+
+                            int color = Color.HSVToColor(new float[] {hue,saturation,1f});
+
+                            IlumiSDK.IlumiColor satColor = new IlumiSDK.IlumiColor(Color.red(color), Color.green(color), Color.blue(color), 0, 0xFF);
+                            IlumiSDK.sharedManager().setColor(macAddressBytes, satColor);
+
+                            if(cmdValue.intValue() == PP_CMD_SELECT) {
+                                Log.i(TAG, "Finalized selection.");
+                                String hexColor = String.format("%06X", (0xFFFFFF & color));
+                                hexColor = hexColor.substring(2);
+                                Log.i(TAG, "HEX: " + hexColor);
+                                final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://iheartpaint.azurewebsites.net/add.php?color=" + hexColor));
+                                startActivity(intent);
+                            }
+                            //TextView backgroundColor = (TextView) findViewById(R.id.backgroundColor);
+                            //backgroundColor.setBackgroundColor(color);
+
                         }
                     }
                 });
