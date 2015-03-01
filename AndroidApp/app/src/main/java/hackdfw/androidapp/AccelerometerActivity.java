@@ -5,11 +5,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
 import com.getpebble.android.kit.PebbleKit;
 import com.getpebble.android.kit.util.PebbleDictionary;
+import com.ilumi.sdk.IlumiSDK;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -20,11 +23,14 @@ import java.util.UUID;
 public class AccelerometerActivity extends Activity {
     private static final String TAG = "PebblePointer";
 
+    private byte[] macAddressBytes;
+
     // The tuple key corresponding to a vector received from the watch
     private static final int PP_KEY_CMD = 128;
     private static final int PP_KEY_X   = 1;
     private static final int PP_KEY_Y   = 2;
     private static final int PP_KEY_Z   = 3;
+    private static final int PP_KEY_COLOR = 4;
 
     private static final int PP_CMD_INVALID = 0;
     private static final int PP_CMD_VECTOR  = 1;
@@ -32,8 +38,11 @@ public class AccelerometerActivity extends Activity {
     public static final int VECTOR_INDEX_X  = 0;
     public static final int VECTOR_INDEX_Y  = 1;
     public static final int VECTOR_INDEX_Z  = 2;
+    //public static final int VECTOR_INDEX_COLOR = 3;
 
     private static int vector[] = new int[3];
+
+    private static int currentColor = 0;
 
     private PebbleKit.PebbleDataReceiver dataReceiver;
 
@@ -44,6 +53,8 @@ public class AccelerometerActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        macAddressBytes = getIntent().getByteArrayExtra("macAddressBytes");
+
         Log.i(TAG, "onCreate: ");
 
         setContentView(R.layout.activity_accelerometer);
@@ -53,6 +64,15 @@ public class AccelerometerActivity extends Activity {
         vector[VECTOR_INDEX_Z] = 0;
 
         PebbleKit.startAppOnPebble(getApplicationContext(), PEBBLEPOINTER_UUID);
+
+        Button resetButton = (Button) findViewById(R.id.resetButton);
+        final IlumiSDK.IlumiColor resetColor = new IlumiSDK.IlumiColor(0, 0, 0, 0, 0xFF);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IlumiSDK.sharedManager().setColor(macAddressBytes, resetColor);
+            }
+        });
     }
 
     @Override
@@ -101,16 +121,25 @@ public class AccelerometerActivity extends Activity {
                             if (xValue != null) {
                                 vector[VECTOR_INDEX_X] = xValue.intValue();
                             }
+                            Log.i(TAG, "vector x" + vector[VECTOR_INDEX_X]);
 
                             final Long yValue = dict.getInteger(PP_KEY_Y);
                             if (yValue != null) {
                                 vector[VECTOR_INDEX_Y] = yValue.intValue();
                             }
+                            Log.i(TAG, "vector y" + vector[VECTOR_INDEX_Y]);
 
                             final Long zValue = dict.getInteger(PP_KEY_Z);
                             if (zValue != null) {
                                 vector[VECTOR_INDEX_Z] = zValue.intValue();
                             }
+                            Log.i(TAG, "vector z" + vector[VECTOR_INDEX_Z]);
+
+                            final Long colorValue = dict.getInteger(PP_KEY_COLOR);
+                            if (colorValue != null) {
+                                currentColor = colorValue.intValue();
+                            }
+                            Log.i(TAG, "color: " + currentColor);
                         }
                     }
                 });
