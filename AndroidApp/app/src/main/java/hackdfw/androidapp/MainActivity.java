@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity implements IlumiSDKDelegate 
     private IlumiArrayAdapter ilumiArrayAdaptor;
     private ArrayList<byte[]> ilumi = new ArrayList<byte[]>();
 
-    private final int COLORSCREEN_ACTIVITY = 1;
+    private final int ACCELEROMETER_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,16 @@ public class MainActivity extends ActionBarActivity implements IlumiSDKDelegate 
 
                 byte[] macAddressBytes = ilumiArrayAdaptor.getItem(position);
 
+                Intent launchAccelerometerActivity = new Intent(getApplicationContext(), Colorscreen.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putByteArray("macAddressBytes", macAddressBytes);
+                bundle.putString("macAddressString", macAddressTextView.getText().toString());
+                launchAccelerometerActivity.putExtras(bundle);
+
+                startActivityForResult(launchAccelerometerActivity, ACCELEROMETER_ACTIVITY);
+
+            /*
                 Intent launchColorScreen = new Intent(getApplicationContext(), Colorscreen.class);
 
                 Bundle bundle = new Bundle();
@@ -52,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements IlumiSDKDelegate 
                 launchColorScreen.putExtras(bundle);
 
                 startActivityForResult(launchColorScreen, COLORSCREEN_ACTIVITY);
-        /*
+
                 Intent ilumiControlScreen = new Intent(getApplicationContext(), IlumiActivity.class);
 
                 Bundle bundle = new Bundle();
