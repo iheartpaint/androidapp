@@ -40,6 +40,8 @@ public class AccelerometerActivity2 extends Activity {
     public static final int VECTOR_INDEX_Z  = 2;
     //public static final int VECTOR_INDEX_COLOR = 3;
 
+    public float saturation = 0.5f;
+
     private static int vector[] = new int[3];
 
     private static int currentColor = 0;
@@ -103,7 +105,7 @@ public class AccelerometerActivity2 extends Activity {
 
             @Override
             public void receiveData(final Context context, final int transactionId, final PebbleDictionary dict) {
-                Log.i(TAG, "data receiver created");
+                Log.i(TAG, "data received");
 
                 handler.post(new Runnable() {
                     @Override
@@ -131,6 +133,13 @@ public class AccelerometerActivity2 extends Activity {
                                 vector[VECTOR_INDEX_Y] = yValue.intValue();
                             }
                             Log.i(TAG, "vector y" + vector[VECTOR_INDEX_Y]);
+
+                            saturation = saturation + (vector[VECTOR_INDEX_Y] / 1000);
+                            Math.max(0, Math.min(1, saturation));
+                            Color saturationColor = new Color();
+                            int color = saturationColor.HSVToColor(new float[] {0,saturation,1f});
+                            IlumiSDK.IlumiColor satColor = new IlumiSDK.IlumiColor(Color.red(color), Color.green(color), Color.blue(color), 0, 0xFF);
+                            IlumiSDK.sharedManager().setColor(macAddressBytes, satColor);
 
                             final Long zValue = dict.getInteger(PP_KEY_Z);
                             if (zValue != null) {
