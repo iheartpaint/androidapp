@@ -49,6 +49,7 @@ public class AccelerometerActivity2 extends Activity {
 
     public int currentColor = 0;
     public int hue = 0;
+    private int color = 0;
 
     private static int lastTimeStamp = -1;
 
@@ -181,11 +182,12 @@ public class AccelerometerActivity2 extends Activity {
                                     break;
                             }
 
-                            int color = Color.HSVToColor(new float[] {hue,saturation,1f});
+                            color = Color.HSVToColor(new float[] {hue,saturation,1f});
 
                             IlumiSDK.IlumiColor satColor = new IlumiSDK.IlumiColor(Color.red(color), Color.green(color), Color.blue(color), 0, 0xFF);
                             IlumiSDK.sharedManager().setColor(macAddressBytes, satColor);
 
+                            /*
                             if(cmdValue.intValue() == PP_CMD_SELECT) {
                                 Log.i(TAG, "Finalized selection.");
                                 String hexColor = String.format("%06X", (0xFFFFFF & color));
@@ -194,9 +196,18 @@ public class AccelerometerActivity2 extends Activity {
                                 final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://iheartpaint.azurewebsites.net/add.php?color=" + hexColor));
                                 startActivity(intent);
                             }
+                            */
                             //TextView backgroundColor = (TextView) findViewById(R.id.backgroundColor);
                             //backgroundColor.setBackgroundColor(color);
 
+                        }
+                        if(cmdValue.intValue() == PP_CMD_SELECT) {
+                            Log.i(TAG, "Finalized selection.");
+                            String hexColor = String.format("%06X", (0xFFFFFF & color));
+                            hexColor = hexColor.substring(2);
+                            Log.i(TAG, "HEX: " + hexColor);
+                            final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://iheartpaint.azurewebsites.net/add.php?color=" + hexColor));
+                            startActivity(intent);
                         }
                     }
                 });
